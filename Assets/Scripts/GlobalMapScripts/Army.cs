@@ -1,13 +1,34 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Army : SelectableInWorldMap
+[RequireComponent(typeof(Navigates))]
+public class Army : MonoBehaviour, IFactionPawn, ISelectablesObject
 {
-    [SerializeField]
-    string armyName="Army";
-    public override void Select()
+
+    public Navigates Navigates { get; private set; }
+    public new string name;
+    [field: SerializeField]
+    public Leader Leader { get; private set; }
+    [field: SerializeField]
+    public List<Troop> Troops { get; private set; }
+    [field: SerializeField]
+    public Faction Faction { get; private set; }
+    private void Awake()
+    {
+        Navigates = GetComponent<Navigates>();
+    }
+    public void Act(CommandRecorder commandRecorder, SelectableAbstract target)
     {
 
     }
+    public void Move(CommandRecorder commandRecorder, Vector3 target)
+    {
+        if (target == null)
+            return;
+        CmdArmyMove cmdArmyMove = new CmdArmyMove(Faction, this, target);
+        commandRecorder.DoThisCmd(cmdArmyMove);
+    }
+
 }
+
+

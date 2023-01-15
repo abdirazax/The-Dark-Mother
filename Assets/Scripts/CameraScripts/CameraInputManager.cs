@@ -8,7 +8,7 @@ public class CameraInputManager : MonoBehaviour
 {
     #region Variables
     private CameraPan cameraPan;
-    private CameraZoom cameraZoom;
+    private AbstractCameraZoom cameraZoom;
     private CameraRotate cameraRotate;
     private PlayerInput playerInput;
     private InputAction moveAction, mousePositionAction, mouseMiddleAction, lookAction, zoomAction, rotateAction, shiftAction;
@@ -17,7 +17,7 @@ public class CameraInputManager : MonoBehaviour
     private void Awake()
     {
         cameraPan = GetComponent<CameraPan>();
-        cameraZoom = GetComponent<CameraZoom>();
+        cameraZoom = GetComponent<AbstractCameraZoom>();
         cameraRotate = GetComponent<CameraRotate>();
         playerInput = GetComponent<PlayerInput>();
         moveAction = playerInput.actions["Move"];
@@ -88,17 +88,17 @@ public class CameraInputManager : MonoBehaviour
     }
     private int CursorOnScreenEdgeDirectionX(float inputX)
     {
-        if (inputX >= Screen.width * .95f)
+        if (inputX >= Screen.width * .98f && inputX <= Screen.width)
             return 1;
-        if (inputX <= Screen.width * .05f)
+        if (inputX <= Screen.width * .02f && inputX >= 0)
             return -1;
         return 0;
     }
     private int CursorOnScreenEdgeDirectionY(float inputY)
     {
-        if (inputY >= Screen.height * .95f)
+        if (inputY >= Screen.height * .98f && inputY <= Screen.height)
             return 1;
-        if (inputY <= Screen.height * .05f)
+        if (inputY <= Screen.height * .02f && inputY >= 0)
             return -1;
         return 0;
     }

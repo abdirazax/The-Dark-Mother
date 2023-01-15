@@ -24,7 +24,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Select",
+                    "name": "MouseSelect",
                     "type": "Button",
                     "id": "29cf6b4e-b493-4a73-94f5-95256ff700bc",
                     "expectedControlType": "Button",
@@ -72,6 +72,15 @@
                     "name": "MouseMiddle",
                     "type": "Button",
                     "id": "54aa8cff-d6b4-4b86-966e-68d3d88c356b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MouseAction",
+                    "type": "Button",
+                    "id": "0367df6a-08ea-4572-b309-bd812aaf5123",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -251,7 +260,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
-                    "action": "Select",
+                    "action": "MouseSelect",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -262,7 +271,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Select",
+                    "action": "MouseSelect",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -273,7 +282,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Touch",
-                    "action": "Select",
+                    "action": "MouseSelect",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -284,7 +293,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Joystick",
-                    "action": "Select",
+                    "action": "MouseSelect",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -295,7 +304,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "XR",
-                    "action": "Select",
+                    "action": "MouseSelect",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -373,6 +382,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "MouseMiddle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "81299779-1f4b-4426-8542-02a7edecab5b",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "MouseAction",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

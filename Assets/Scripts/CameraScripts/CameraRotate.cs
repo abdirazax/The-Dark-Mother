@@ -5,7 +5,8 @@ public class CameraRotate : MonoBehaviour
 {
     #region Variables
     [SerializeField]
-    private float rotateSpeed = 30f;
+    [Range(0.0f, 3.0f)]
+    private float rotateSpeed = 1f;
     
     private CinemachineVirtualCamera virtualCamera;
     private Transform cameraTransform, cameraTransformParent;
@@ -20,7 +21,7 @@ public class CameraRotate : MonoBehaviour
     public void RotateScreen(float inputRotateX, float inputRotateY)
     {
         Quaternion camCurrentRotation = cameraTransformParent.rotation;
-        cameraTransformParent.rotation *= Quaternion.Euler(new Vector3(0, inputRotateX, 0));
-        cameraTransform.rotation *= Quaternion.Euler(new Vector3(-inputRotateY, 0, 0));
+        cameraTransformParent.rotation *= Quaternion.Euler(new Vector3(0, inputRotateX * rotateSpeed, 0));
+        cameraTransform.rotation *= Quaternion.Euler(new Vector3(-inputRotateY * rotateSpeed, 0, 0));
     }
 }

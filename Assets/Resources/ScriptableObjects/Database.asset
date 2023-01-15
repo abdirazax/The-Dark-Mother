@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87d9ee48762694549bbde5ff6a06e6de, type: 3}
+  m_Name: Database
+  m_EditorClassIdentifier: 
+  allFactions:
+  - {fileID: 11400000, guid: 89136829515e8d8428742dcea6be6ee0, type: 2}
+  - {fileID: 11400000, guid: 4ab130cc7304a4043849a495d1011df2, type: 2}
+  - {fileID: 11400000, guid: 4aa1495366bd15d4eb46d47d04ec5333, type: 2}
+  allTroops:
+  - {fileID: 11400000, guid: 77557c3d86f26334693750525dcdafe8, type: 2}
+  - {fileID: 11400000, guid: 9f3827aec00e66f4ca734ba52f560e30, type: 2}
+  allAgents:
+  - {fileID: 11400000, guid: d2662c832100a99469c5fcd42edd65f4, type: 2}
+  allLeaders:
+  - {fileID: 11400000, guid: bb58a049d9cc69b418574ba12c25df3d, type: 2}
+  - {fileID: 11400000, guid: 68c261795d5529241bf5467d1aa188fe, type: 2}
+  allBuildings:
+  - {fileID: 11400000, guid: 5f7b54a242de0ca48986ac268ae3e584, type: 2}
+  - {fileID: 11400000, guid: 499f4f0c4492e8249ab12f1a947cb6eb, type: 2}
+  - {fileID: 11400000, guid: 1abfd8d04b5658a469ce2ca8999e8762, type: 2}

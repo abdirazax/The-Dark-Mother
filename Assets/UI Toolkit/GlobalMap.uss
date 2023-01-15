@@ -1,0 +1,57 @@
+.troop-toggle {
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgba(0, 0, 0, 0.45);
+    border-right-color: rgba(0, 0, 0, 0.45);
+    border-top-color: rgba(0, 0, 0, 0.45);
+    border-bottom-color: rgba(0, 0, 0, 0.45);
+    -unity-text-align: upper-center;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    flex-wrap: wrap;
+    white-space: normal;
+    flex-direction: column;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-left: 1px;
+    margin-right: 1px;
+    margin-bottom: 0;
+    margin-top: 0;
+    font-size: 24px;
+    -unity-font-definition: url('project://database/Assets/UI%20Toolkit/Fonts/RobotoCondensed-Regular%20SDF.asset?fileID=11400000&guid=82ec28a266657484abc75b962809c855&type=2#RobotoCondensed-Regular SDF');
+    flex-basis: auto;
+    flex-shrink: 1;
+    transform-origin: center;
+    max-width: 90px;
+    min-width: 50px;
+    flex-grow: 1;
+    background-color: rgba(56, 56, 56, 255);
+}
+
+.troop-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.31);
+    transition-duration: 0.05s;
+    transition-timing-function: ease-out-circ;
+}
+
+#EndTurnButton {
+    border-left-color: rgb(48, 48, 48);
+    border-right-color: rgb(36, 36, 36);
+    border-top-color: rgb(48, 48, 48);
+    border-bottom-color: rgb(48, 48, 48);
+}
+
+#EndTurnButton:hover {
+    border-left-color: rgb(159, 131, 137);
+    border-right-color: rgb(36, 36, 36);
+    border-top-color: rgb(159, 131, 137);
+    border-bottom-color: rgb(159, 131, 137);
+    transition-duration: 0.1s;
+    transition-timing-function: ease-out;
+    background-color: rgb(36, 36, 36);
+}
