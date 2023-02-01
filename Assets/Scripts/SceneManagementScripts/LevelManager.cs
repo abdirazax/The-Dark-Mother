@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ public class LevelManager : MonoBehaviour
     public static LevelManager Instance;
     [SerializeField] GameObject loaderCanvas;
     [SerializeField] Image progressBar;
+    public static event Action<string> OnSceneLoadedWithSaveFilePathIndication;
 
     private void Awake()
     {
@@ -23,7 +25,7 @@ public class LevelManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public async void LoadScene(string sceneName)
+    public async void LoadScene(string sceneName, string saveFileToLoadPath)
     {
         progressBar.fillAmount = 0;
         var scene = SceneManager.LoadSceneAsync(sceneName);
@@ -34,6 +36,7 @@ public class LevelManager : MonoBehaviour
             progressBar.fillAmount = scene.progress / .9f;
         } while (scene.progress < .9f);
         scene.allowSceneActivation = true;
+        OnSceneLoadedWithSaveFilePathIndication?.Invoke(saveFileToLoadPath);
         loaderCanvas.SetActive(false);
     }
 }

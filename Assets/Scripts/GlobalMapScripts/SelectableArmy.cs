@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 /// <summary>
@@ -20,8 +21,11 @@ public class SelectableArmy : SelectableAbstract
     #endregion
     private void Awake()
     {
+        Initialize();
+    }
+    public void Initialize()
+    {
         Army = GetComponent<Army>();
-        Faction = Army.Faction;
     }
 
     public override void MakeSelected(SelectionManager selectionManager)
@@ -51,9 +55,10 @@ public class SelectableArmy : SelectableAbstract
 
     public override void StartPlanningAction(SelectionManager selectionManager, InputAction mousePositionInputAction)
     {
-        Navigates navigator = GetComponent<Navigates>();
-        if (navigator == null) return;
-        selectionManager.DrawsPathOfSelectionManager.StartDrawingPathOf(navigator, mousePositionInputAction);
+        Navigates navigator = Army.Navigates;
+        if (navigator == null) 
+            return;
+        selectionManager.DrawsPathOfSelectionManager.StartDrawingPathOf(navigator, mousePositionInputAction, selectionManager.maxDistanceToTryFindNavMeshAround);
     }
 
     public override void EndPlanningAction(SelectionManager selectionManager, InputAction mousePositionInputAction)
@@ -72,13 +77,20 @@ public class SelectableArmy : SelectableAbstract
                     Act(selectionManager.CommandRecorder, hitColliderOfSelectable.selectable);
                     return;
                 }
+                NavMeshHit closestNavMeshHit;
+                if (NavMesh.SamplePosition(hit.point, out closestNavMeshHit, selectionManager.maxDistanceToTryFindNavMeshAround, NavMesh.AllAreas))
+                {
+                    Move(selectionManager.CommandRecorder, closestNavMeshHit.position);
+                }
             }
         }
 
         // if mouse action did not land on another selectable then
         // handle action like move
         {
-            Move(selectionManager.CommandRecorder, selectionManager.DrawsPathOfSelectionManager.lastMousePositionOnTerrain);
+            Navigates navigator = GetComponent<Navigates>();
+            if (navigator == null) return;
+            
             //drawsPathOfSelectionManager.HideDrawnPath();
         }
     }

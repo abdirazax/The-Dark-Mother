@@ -2,7 +2,7 @@
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Navigates))]
+[RequireComponent(typeof(DoesNavigation))]
 [RequireComponent(typeof(LineRenderer))]
 public class DrawsPathOfNavigates : MonoBehaviour
 {
@@ -10,34 +10,43 @@ public class DrawsPathOfNavigates : MonoBehaviour
     DrawsPathStateAbstract currentState;
     DrawsPathStateDrawing drawingState = new DrawsPathStateDrawing();
     DrawsPathStateNotDrawing notDrawingState = new DrawsPathStateNotDrawing();
-    private Navigates navigator;
+    private DoesNavigation doesNavigation;
     public LineRenderer LineRenderer { get; private set; }
     #endregion
     private void OnEnable()
     {
-        navigator.OnMovingStart += StartDrawingPath;
-        navigator.OnMovingEnd += EndDrawingPath;
+        Initialize();
     }
     private void OnDisable()
     {
-        navigator.OnMovingStart -= StartDrawingPath;
-        navigator.OnMovingEnd -= EndDrawingPath;
         EndDrawingPath();
     }
     private void Awake()
     {
-        navigator = GetComponent<Navigates>();
+        Initialize();
+    }
+    void Initialize()
+    {
+        doesNavigation = GetComponent<DoesNavigation>();
         currentState = notDrawingState;
         LineRenderer = GetComponent<LineRenderer>();
         LineRenderer.startWidth = 0.3f;
         LineRenderer.endWidth = 0.3f;
         LineRenderer.positionCount = 0;
     }
-    public void StartDrawingPath()
+    public void ReactToStartMoving()
+    {
+        StartDrawingPath();
+    }
+    void StartDrawingPath()
     {
         currentState = drawingState;
     }
-    public void EndDrawingPath()
+    public void ReactToEndMoving()
+    {
+        EndDrawingPath();
+    }
+    void EndDrawingPath()
     {
         HideDrawnPath();
         currentState = notDrawingState;
@@ -49,8 +58,8 @@ public class DrawsPathOfNavigates : MonoBehaviour
 
     void DrawPotentialPathOfSelectedNavigatorToTarget()
     {
-        NavMeshPath globalPath = navigator.getPathToReach(navigator.finalDestination);
-        NavMeshPath pathInThisTurn = navigator.getPathToReachInThisTurn(globalPath);
+        NavMeshPath globalPath = doesNavigation.getPathToReach(doesNavigation.GlobalDestinationPosition);
+        NavMeshPath pathInThisTurn = doesNavigation.getPathToReachInThisTurn(globalPath);
         DrawPotentialPath(globalPath);
     }
     void DrawPotentialPath(NavMeshPath pathToDraw)

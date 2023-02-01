@@ -14,12 +14,11 @@ public class SelectionManager : MonoBehaviour
 {
 
     #region Variables
-    [SerializeField]
-    UIPortrait portrait;
-    [SerializeField]
+    /*[SerializeField]
     UICityPanel cityPanel;
     [SerializeField] 
-    UIArmyPanel armyPanel;
+    UIArmyPanel armyPanel;*/
+    public float maxDistanceToTryFindNavMeshAround = 20f;
     [SerializeField]
     Highlight selectionHighlight;
     [field:SerializeField]
@@ -27,7 +26,10 @@ public class SelectionManager : MonoBehaviour
     public DrawsPathOnMouseInput DrawsPathOfSelectionManager { get; private set; }
     public CommandRecorder CommandRecorder { get; private set; }
     private readonly string terrainToMoveOnTag = "TerrainToMoveOn";
-
+    public static event Action<Sprite> OnPortraitHaverSelected;
+    public static event Action OnSomethingDeselected;
+    public static event Action<SelectableCity> OnCitySelected;
+    public static event Action<SelectableArmy> OnArmySelected;
     #endregion
     private void OnEnable()
     {
@@ -76,8 +78,8 @@ public class SelectionManager : MonoBehaviour
         if (selectableArmy == null)
             return;
         Selected = selectableArmy;
-        portrait.SetPortrait(selectableArmy.GetPortraitSprite());
-        armyPanel.RenderArmy(selectableArmy);
+        OnPortraitHaverSelected?.Invoke(selectableArmy.GetPortraitSprite());
+        OnArmySelected?.Invoke(selectableArmy);
         selectionHighlight.Follow(selectableArmy.transform, 1);
     }
     public void SetSelectedCity(SelectableCity selectableCity)
@@ -86,17 +88,15 @@ public class SelectionManager : MonoBehaviour
         if (selectableCity == null)
             return;
         Selected = selectableCity;
-        portrait.SetPortrait(selectableCity.GetPortraitSprite());
-        cityPanel.RenderCity(selectableCity);
+        OnPortraitHaverSelected?.Invoke(selectableCity.GetPortraitSprite());
+        OnCitySelected?.Invoke(selectableCity);
         selectionHighlight.Follow(selectableCity.transform, 3);
     }
     public void ResetSelected()
     {
         Selected = null;
-        portrait.Hide();
-        armyPanel.Hide();
-        cityPanel.Hide();
-        selectionHighlight.Remove();
+        OnSomethingDeselected?.Invoke();
+        selectionHighlight.Disable();
     }
 
     

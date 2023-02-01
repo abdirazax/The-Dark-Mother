@@ -4,42 +4,80 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Collections.Generic;
 
 
-public class SaveLoadSystem :MonoBehaviour
+public class SaveLoadSystem : MonoBehaviour
 {
-    public string savePath => $"{Application.persistentDataPath}/save.sav";
-
-    [ContextMenu("Save")]
-    void Save()
+    public string savePath 
+    { 
+        get 
+        {
+            string path = $"{Application.persistentDataPath}/SaveFiles";
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            return $"{path}/Save.sav";
+        } 
+    }
+    public string saveAsCampaignFilePath
     {
-        Dictionary<string, object> state = LoadFile();
-        SaveState(state);
-        SaveFile(state);
+        get
+        {
+            string path = $"{Application.dataPath}/Campaigns/MainCampaigns";
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            return $"{path}/MainCampaign.campaign";
+        }
     }
 
-    [ContextMenu("Load")]
-    void Load()
+    public void SaveToPath(string saveFilePath)
     {
-        Dictionary<string, object> state = LoadFile();
+        Dictionary<string, object> state = LoadFile(saveFilePath);
+        if (!Directory.Exists(saveFilePath))
+        {
+            Directory.CreateDirectory(saveFilePath);
+        }
+        SaveState(state);
+        SaveFile(state, savePath);
+    }
+    public void LoadFromPath(string saveFilePath)
+    {
+        Dictionary<string, object> state = LoadFile(saveFilePath);
         LoadState(state);
     }
 
-    
-    void SaveFile(object state)
+    [ContextMenu("Save As Campaign")]
+    void SaveAsCampaign()
     {
-        using (FileStream stream = File.Open(savePath, FileMode.Create))
+        Dictionary<string, object> state = LoadFile(saveAsCampaignFilePath);
+        SaveState(state);
+        SaveFile(state, saveAsCampaignFilePath);
+    }
+    [ContextMenu("Load Campaign")]
+    void LoadCampaign()
+    {
+        Dictionary<string, object> state = LoadFile(saveAsCampaignFilePath);
+        LoadState(state);
+    }
+
+
+    void SaveFile(object state, string path)
+    {
+        using (FileStream stream = File.Open(path, FileMode.Create))
         {
             BinaryFormatter formatter = new BinaryFormatter();
             formatter.Serialize(stream, state);
         }
     }
-    Dictionary<string,object> LoadFile()
+    Dictionary<string,object> LoadFile(string path)
     {
-        if (!File.Exists(savePath))
+        if (!File.Exists(path))
         {
-            Debug.Log("Save file not found in " + savePath);
+            Debug.Log("Save file not found in " + path);
             return new Dictionary<string, object>();
         }
-        using (FileStream stream = File.Open(savePath,FileMode.Open))
+        using (FileStream stream = File.Open(path, FileMode.Open))
         {
             BinaryFormatter formatter = new BinaryFormatter();
             return (Dictionary<string, object>)formatter.Deserialize(stream);

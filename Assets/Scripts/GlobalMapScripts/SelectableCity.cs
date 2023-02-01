@@ -21,7 +21,6 @@ public class SelectableCity : SelectableAbstract
     private void Awake()
     {
         City = GetComponent<City>();
-        Faction = City.Faction;
     }
     /// <param name="selectionManager">Selection Manager that will highlight this and change UI</param>
     public override void MakeSelected(SelectionManager selectionManager)

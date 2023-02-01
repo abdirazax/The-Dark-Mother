@@ -141,6 +141,28 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 3941084069081714671, guid: ecc594ce085324c4b8733e326648b231,
         type: 3}
+      propertyPath: <Agents>k__BackingField.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941084069081714671, guid: ecc594ce085324c4b8733e326648b231,
+        type: 3}
+      propertyPath: <Troops>k__BackingField.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941084069081714671, guid: ecc594ce085324c4b8733e326648b231,
+        type: 3}
+      propertyPath: <Agents>k__BackingField.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: d2662c832100a99469c5fcd42edd65f4,
+        type: 2}
+    - target: {fileID: 3941084069081714671, guid: ecc594ce085324c4b8733e326648b231,
+        type: 3}
+      propertyPath: <Troops>k__BackingField.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 77557c3d86f26334693750525dcdafe8,
+        type: 2}
+    - target: {fileID: 3941084069081714671, guid: ecc594ce085324c4b8733e326648b231,
+        type: 3}
       propertyPath: <Troops>k__BackingField.Array.data[1]
       value: 
       objectReference: {fileID: 11400000, guid: 77557c3d86f26334693750525dcdafe8,
@@ -336,3 +358,15 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!114 &2072658055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1567081266063100654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fc2cfb7c233193499ee5c9357b860d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

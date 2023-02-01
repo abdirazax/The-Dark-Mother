@@ -17,6 +17,16 @@ public class UIArmyPanel : MonoBehaviour
             troopPortraits.Add(troopsPanel.GetChild(i).GetComponent<Image>());
         }
     }
+    private void OnEnable()
+    {
+        SelectionManager.OnArmySelected += RenderArmy;
+        SelectionManager.OnSomethingDeselected += Hide;
+    }
+    private void OnDisable()
+    {
+        SelectionManager.OnArmySelected -= RenderArmy;
+        SelectionManager.OnSomethingDeselected -= Hide;
+    }
     public void Hide()
     {
         gameObject.SetActive(false);

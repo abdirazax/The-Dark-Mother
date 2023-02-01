@@ -14,11 +14,15 @@ public class TurnManager : MonoBehaviour, ISaveable
     int currentFactionIndex;
     public int CurrentFactionIndex => currentFactionIndex;
     public TurnStateAbstract CurrentTurnState { get; private set; }
+    
     TurnStateAbstract temporaryPausedTurnStateToGoBackToWhenUnpaused;
+    #region TurnStates
     TurnStateFocusingOnUI focusingOnUI = new TurnStateFocusingOnUI();
     TurnStateWaitingForCurrentFactionActions waitingForCurrentFactionActions = new TurnStateWaitingForCurrentFactionActions();
     TurnStateWaitingForAllActionsToEndToFinishThisTurn waitingForAllActionsToEndToFinishThisTurn = new TurnStateWaitingForAllActionsToEndToFinishThisTurn();
     TurnStateApplyingFactionChangesInThisTurn applyingFactionChangesInThisTurn = new TurnStateApplyingFactionChangesInThisTurn();
+    #endregion
+
     [SerializeField]
     int turnNumber;
     public int TurnNumber => turnNumber;
@@ -82,16 +86,16 @@ public class TurnManager : MonoBehaviour, ISaveable
     }
     bool IsCurrentFactionPlayer()
     {
-        return CurrentFaction.isPlayerFaction;
+        return factionsManager.IsFactionPlayer(CurrentFaction);
     }
     void EnablePlayerActionAllowedIfCurrentFactionIsPlayer()
     {
         if (IsCurrentFactionPlayer())
-            playerSelectorGlobalMap.PlayerActionAllowed = true;
+            playerSelectorGlobalMap.EnablePlayerAction();
     }
     void DisablePlayerActionAllowed()
     {
-        playerSelectorGlobalMap.PlayerActionAllowed = false;
+        playerSelectorGlobalMap.DisablePlayerAction();
     }
     void ExecuteAndRecordAllCommandsOfCurrentFaction()
     {

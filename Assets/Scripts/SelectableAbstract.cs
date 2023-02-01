@@ -11,7 +11,6 @@ public abstract class SelectableAbstract:MonoBehaviour,IHavePortrait
 {
     [SerializeField]
     protected Sprite portraitSprite;
-    public Faction Faction { get; protected set; }
     protected ISelectablesObject selectablesObject;
     public ISelectablesObject SelectablesObject => selectablesObject;
 
@@ -40,6 +39,11 @@ public abstract class SelectableAbstract:MonoBehaviour,IHavePortrait
         return portraitSprite;
     }
 
+
+    public Faction GetObjectFaction()
+    {
+        return SelectablesObject.GetFaction();
+    }
     
 }
 

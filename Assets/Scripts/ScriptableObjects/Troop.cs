@@ -21,5 +21,4 @@ public class Troop : ScriptableObject
     public List<Resource> resourceChangePerTurn = new List<Resource>();
     [field: SerializeField]
     public List<Resource> resourceCapChangeWhenHired = new List<Resource>();
-
 }

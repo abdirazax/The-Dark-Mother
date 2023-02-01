@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+[RequireComponent(typeof(PlayerInput))]
 public class PlayerSelectorInputManager : MonoBehaviour
 {
     #region Variables
@@ -51,6 +51,5 @@ public class PlayerSelectorInputManager : MonoBehaviour
     {
         playerSelector.ActionEnd(MousePositionAction);
     }
-
 
 }

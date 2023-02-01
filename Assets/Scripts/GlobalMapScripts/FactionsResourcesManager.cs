@@ -7,6 +7,8 @@ public class FactionsResourcesManager : MonoBehaviour
     [field:SerializeField]
     public SerializableDictionary<Faction, FactionResourceStore> factionResourceStores = new SerializableDictionary<Faction, FactionResourceStore>();
     public static Action<FactionResourceStore, SerializableDictionary<ResourceType, int>, bool> OnPlayerFactionResourceChangeCalculated;
+    
+
 
     public void CreateResourcesStores(List<Faction> factions, DatabaseScriptableObject database)
     {
@@ -14,7 +16,7 @@ public class FactionsResourcesManager : MonoBehaviour
             factionResourceStores.Add(factions[i], new FactionResourceStore(database.allResourceTypes));
     }
 
-    public SerializableDictionary<ResourceType, int> CalculatedFactionResourcesChangeInNextTurn(Faction faction, GlobalMapSpawnManager globalMapSpawnManager)
+    public SerializableDictionary<ResourceType, int> CalculatedFactionResourcesChangeInNextTurn(Faction faction, GlobalMapSpawnManager globalMapSpawnManager, bool IsToBeDisplayedOnScreen)
     {
         SerializableDictionary<ResourceType, int> allResourceChangesInThisTurnDictionary = new SerializableDictionary<ResourceType, int>();
         foreach (City city in globalMapSpawnManager.citiesInTheScene[faction])
@@ -30,7 +32,7 @@ public class FactionsResourcesManager : MonoBehaviour
             foreach (Troop troop in army.Troops)
                 AddToResourceChanges(troop.resourceChangePerTurn);
         }
-        OnPlayerFactionResourceChangeCalculated?.Invoke(factionResourceStores[faction], allResourceChangesInThisTurnDictionary, faction.isPlayerFaction);
+        OnPlayerFactionResourceChangeCalculated?.Invoke(factionResourceStores[faction], allResourceChangesInThisTurnDictionary, IsToBeDisplayedOnScreen);
         return allResourceChangesInThisTurnDictionary;
         void AddToResourceChanges(List<Resource> resourceChangePerTurn)
         {
@@ -44,7 +46,7 @@ public class FactionsResourcesManager : MonoBehaviour
         }
     }
 
-    public void ActivateResourceChangesPerTurn(Faction faction, GlobalMapSpawnManager globalMapSpawnManager)
+    public void ActivateResourceChangesPerTurn(Faction faction, GlobalMapSpawnManager globalMapSpawnManager,bool isToBeDisplayedOnScreen)
     {
         UpdateCaps(faction, globalMapSpawnManager);
         foreach (Army army in globalMapSpawnManager.armiesInTheScene[faction])
@@ -52,7 +54,7 @@ public class FactionsResourcesManager : MonoBehaviour
             army.Navigates.ReplenishMovementPoints();
         }
         List<Resource> allResourceChangesInThisTurn = new List<Resource>();
-        foreach (KeyValuePair<ResourceType, int> resourceAsPair in CalculatedFactionResourcesChangeInNextTurn(faction, globalMapSpawnManager))
+        foreach (KeyValuePair<ResourceType, int> resourceAsPair in CalculatedFactionResourcesChangeInNextTurn(faction, globalMapSpawnManager,isToBeDisplayedOnScreen))
         {
             allResourceChangesInThisTurn.Add(new Resource(resourceAsPair));
         }

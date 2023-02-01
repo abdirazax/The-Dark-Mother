@@ -12,12 +12,14 @@ using UnityEngine.InputSystem;
 public class DrawsPathOnMouseInput : MonoBehaviour
 {
     #region Variables
+    [SerializeField]
+    float maxDistanceToTryFindNavMeshAround = 20f;
     DrawsPathStateAbstract currentState;
     DrawsPathStateDrawing drawingState = new DrawsPathStateDrawing();
     DrawsPathStateNotDrawing notDrawingState = new DrawsPathStateNotDrawing();
     private InputAction mousePositionInputAction;
     private Navigates navigator;
-    public Vector3 lastMousePositionOnTerrain;
+    /*public Vector3 lastMousePositionOnTerrain;*/
     public LineRenderer LineRenderer { get; private set; }
     #endregion
     private void Awake()
@@ -28,9 +30,9 @@ public class DrawsPathOnMouseInput : MonoBehaviour
         LineRenderer.endWidth = 0.3f;
         LineRenderer.positionCount = 0;
     }
-    public void StartDrawingPathOf(Navigates navigatingObject,InputAction mousePositionInputAction)
+    public void StartDrawingPathOf(Navigates navigatingObject,InputAction mousePositionInputAction, float maxDistanceToTryFindNavMeshAround)
     {
-        lastMousePositionOnTerrain = new Vector3();
+        this.maxDistanceToTryFindNavMeshAround = maxDistanceToTryFindNavMeshAround;
         navigator = navigatingObject;
         this.mousePositionInputAction = mousePositionInputAction;
         currentState = drawingState;
@@ -47,11 +49,13 @@ public class DrawsPathOnMouseInput : MonoBehaviour
 
     void DrawPotentialPathOfSelectedNavigatorToTarget(Vector3 target)
     {
-        NavMeshPath globalPath = navigator.getPathToReach(target);
-        NavMeshPath pathInThisTurn = navigator.getPathToReachInThisTurn(globalPath);
-        DrawPotentialPath(globalPath);
-        if (globalPath.corners.Length >= 2)
-            lastMousePositionOnTerrain = globalPath.corners[globalPath.corners.Length - 1];
+        NavMeshHit closestNavMeshHit;
+        if (NavMesh.SamplePosition(target, out closestNavMeshHit, maxDistanceToTryFindNavMeshAround, NavMesh.AllAreas))
+        {
+            NavMeshPath globalPath = navigator.DoesNavigation.getPathToReach(closestNavMeshHit.position);
+            NavMeshPath pathInThisTurn = navigator.DoesNavigation.getPathToReachInThisTurn(closestNavMeshHit.position);
+            DrawPotentialPath(globalPath);
+        }
     }
 
     void SetLineRendererPos(int pointIndex, Vector3 position)

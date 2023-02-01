@@ -12,6 +12,16 @@ public class UIPortrait : MonoBehaviour
         portrait = GetComponent<Image>();
         defaultSprite = portrait.sprite;
     }
+    private void OnEnable()
+    {
+        SelectionManager.OnPortraitHaverSelected += SetPortrait;
+        SelectionManager.OnSomethingDeselected += Hide;
+    }
+    private void OnDisable()
+    {
+        SelectionManager.OnPortraitHaverSelected -= SetPortrait;
+        SelectionManager.OnSomethingDeselected -= Hide;
+    }
 
     /// <summary>
     /// Change Portrait in the UI to selected selectable.

@@ -46,7 +46,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6a0bd4aa3c1d5b449858b1f89ab7084, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiManager: {fileID: 0}
   portraitSprite: {fileID: 0}
 --- !u!114 &5535902696027833259
 MonoBehaviour:
@@ -61,10 +60,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: First Hatch Nest
-  <SettledArmy>k__BackingField: {fileID: 0}
   <Buildings>k__BackingField:
-  - {fileID: 11400000, guid: 4a1de2e6a3abdfb4280c13aa091871c4, type: 2}
-  - {fileID: 11400000, guid: 0926e6a611cee0841859a2a938925bd4, type: 2}
+  - {fileID: 11400000, guid: 499f4f0c4492e8249ab12f1a947cb6eb, type: 2}
+  - {fileID: 11400000, guid: 1abfd8d04b5658a469ce2ca8999e8762, type: 2}
   <Faction>k__BackingField: {fileID: 11400000, guid: 4aa1495366bd15d4eb46d47d04ec5333,
     type: 2}
 --- !u!1001 &7763337611742020916

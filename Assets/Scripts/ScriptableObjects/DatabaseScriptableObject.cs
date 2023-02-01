@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-[CreateAssetMenu]
+[CreateAssetMenu(fileName = "Database", menuName = "Persistent Data/Database")]
 public class DatabaseScriptableObject : ScriptableObject
 {
     public SerializableDictionary<string, Faction> allFactions = new SerializableDictionary<string, Faction>();

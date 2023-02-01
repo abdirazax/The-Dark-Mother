@@ -1519,7 +1519,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 309434064}
-  - component: {fileID: 309434065}
   m_Layer: 3
   m_Name: Cities
   m_TagString: Untagged
@@ -1545,24 +1544,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &309434065
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 309434063}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e4a264c16c92ac46917bdfa881b225f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  armiesInTheScene:
-    keys: []
-  citiesInTheScene:
-    keys: []
-  armiesContainer: {fileID: 0}
-  citiesContainer: {fileID: 0}
 --- !u!1 &331895503
 GameObject:
   m_ObjectHideFlags: 0
@@ -4202,18 +4183,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3941084068219991737}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &866466133 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3941084069081714668, guid: ecc594ce085324c4b8733e326648b231,
-    type: 3}
-  m_PrefabInstance: {fileID: 3941084068219991737}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f768a9bf5c333d2499fdf4301481a7e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &871911382
 GameObject:
   m_ObjectHideFlags: 0
@@ -4390,6 +4359,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4aa1495366bd15d4eb46d47d04ec5333, type: 2}
   - {fileID: 11400000, guid: 4ab130cc7304a4043849a495d1011df2, type: 2}
   - {fileID: 11400000, guid: 89136829515e8d8428742dcea6be6ee0, type: 2}
+  playerControlledFactions:
+  - {fileID: 11400000, guid: 4aa1495366bd15d4eb46d47d04ec5333, type: 2}
 --- !u!114 &871911389
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4402,11 +4373,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90ddcac4ef71b7e4c8ab4c7fa43290f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  portrait: {fileID: 1633085292}
-  cityPanel: {fileID: 692695997}
-  armyPanel: {fileID: 362071231}
+  maxDistanceToTryFindNavMeshAround: 20
   selectionHighlight: {fileID: 1550787203}
-  <Selected>k__BackingField: {fileID: 866466133}
+  <Selected>k__BackingField: {fileID: 0}
 --- !u!114 &871911390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4419,7 +4388,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0834f077153d75a49957cbc3aad7eef4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lastMousePositionOnTerrain: {x: 0, y: 0, z: 0}
+  maxDistanceToTryFindNavMeshAround: 0
 --- !u!114 &871911392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4585,12 +4554,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e4a264c16c92ac46917bdfa881b225f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  database: {fileID: 11400000, guid: 8780bbed0054adb4cb73011d5bc42fb9, type: 2}
   armiesInTheScene:
     keys: []
   citiesInTheScene:
     keys: []
   armiesContainer: {fileID: 365041649}
   citiesContainer: {fileID: 309434064}
+  armyPrototype: {fileID: 3941084069081714676, guid: ecc594ce085324c4b8733e326648b231,
+    type: 3}
+  cityPrototype: {fileID: 1794701274940137328, guid: cea770cc9dab7384686f6622a5e901b0,
+    type: 3}
 --- !u!1 &891367579
 GameObject:
   m_ObjectHideFlags: 0
@@ -8436,6 +8410,10 @@ MonoBehaviour:
   inputPanSpeedInfluence: 2
   cameraMinHeight: 1
   cameraMaxHeight: 10
+  cameraMinX: 0
+  cameraMaxX: 20
+  cameraMinZ: 0
+  cameraMaxZ: 20
 --- !u!114 &1497399783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8748,6 +8726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d004e0bc1333f3d43a459ad4e4970ecc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialParent: {fileID: 871911385}
 --- !u!1 &1569954858
 GameObject:
   m_ObjectHideFlags: 0
@@ -13433,11 +13412,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 309434064}
     m_Modifications:
-    - target: {fileID: 1794701274940137326, guid: cea770cc9dab7384686f6622a5e901b0,
-        type: 3}
-      propertyPath: uiManager
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 1794701274940137328, guid: cea770cc9dab7384686f6622a5e901b0,
         type: 3}
       propertyPath: m_Name
@@ -13498,18 +13472,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5535902696027833259, guid: cea770cc9dab7384686f6622a5e901b0,
-        type: 3}
-      propertyPath: <Buildings>k__BackingField.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 499f4f0c4492e8249ab12f1a947cb6eb,
-        type: 2}
-    - target: {fileID: 5535902696027833259, guid: cea770cc9dab7384686f6622a5e901b0,
-        type: 3}
-      propertyPath: <Buildings>k__BackingField.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 1abfd8d04b5658a469ce2ca8999e8762,
-        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cea770cc9dab7384686f6622a5e901b0, type: 3}
 --- !u!1001 &2526219292224456037
@@ -13579,16 +13541,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Army Camelot
       objectReference: {fileID: 0}
-    - target: {fileID: 1567081266063100658, guid: e72bfbf1a2f0b8440a3582247977912e,
-        type: 3}
-      propertyPath: startHL
-      value: 
-      objectReference: {fileID: 331895504}
-    - target: {fileID: 1567081266063100658, guid: e72bfbf1a2f0b8440a3582247977912e,
-        type: 3}
-      propertyPath: targetHL
-      value: 
-      objectReference: {fileID: 1796486474}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e72bfbf1a2f0b8440a3582247977912e, type: 3}
 --- !u!1001 &3941084068219991737
@@ -13598,16 +13550,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 365041649}
     m_Modifications:
-    - target: {fileID: 3941084069081714664, guid: ecc594ce085324c4b8733e326648b231,
-        type: 3}
-      propertyPath: startHL
-      value: 
-      objectReference: {fileID: 331895504}
-    - target: {fileID: 3941084069081714664, guid: ecc594ce085324c4b8733e326648b231,
-        type: 3}
-      propertyPath: targetHL
-      value: 
-      objectReference: {fileID: 1796486474}
     - target: {fileID: 3941084069081714676, guid: ecc594ce085324c4b8733e326648b231,
         type: 3}
       propertyPath: m_Name

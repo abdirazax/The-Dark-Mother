@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(SelectionManager))]
+[RequireComponent(typeof(FactionsManager))]
 /// <summary>
 /// Manages Selectables that the player interacts with.
 /// Reacts to commands from PlayerSelectorInputManager class on the Global Map.
@@ -14,14 +15,16 @@ public class PlayerSelectorGlobalMap : PlayerSelectorAbstract
 
     #region Variables
     SelectionManager selectionManager;
-    public bool PlayerActionAllowed { get; set; }
+    FactionsManager factionsManager;
+    bool playerActionAllowed;
 
     public static event Action<InputAction> OnSelectStart, OnSelectEnd, OnActionStart, OnActionEnd;
     #endregion
     private void Awake()
     {
         selectionManager = GetComponent<SelectionManager>();
-        PlayerActionAllowed = true;
+        factionsManager = GetComponent<FactionsManager>();
+        playerActionAllowed = false;
     }
     public override void SelectionStart(InputAction mousePositionInputAction) 
     {
@@ -33,25 +36,25 @@ public class PlayerSelectorGlobalMap : PlayerSelectorAbstract
     }
     public override void ActionStart(InputAction mousePositionInputAction)
     {
-        if (!PlayerActionAllowed) return;
+        if (!playerActionAllowed) return;
         if (selectionManager.Selected == null) return;
-        if (!selectionManager.Selected.Faction.isPlayerFaction) return;
+        if (!factionsManager.IsFactionPlayer(selectionManager.Selected.GetObjectFaction())) return;
         OnActionStart?.Invoke(mousePositionInputAction);
     }
     public override void ActionEnd(InputAction mousePositionInputAction)
     {
-        if (!PlayerActionAllowed) return;
+        if (!playerActionAllowed) return;
         if (selectionManager.Selected == null) return;
-        if (!selectionManager.Selected.Faction.isPlayerFaction) return;
+        if (!factionsManager.IsFactionPlayer(selectionManager.Selected.GetObjectFaction())) return;
         OnActionEnd?.Invoke(mousePositionInputAction);
     }
 
     public void DisablePlayerAction()
     {
-        PlayerActionAllowed = false;
+        playerActionAllowed = false;
     }
     public void EnablePlayerAction()
     {
-        PlayerActionAllowed = true;
+        playerActionAllowed = true;
     }
 }

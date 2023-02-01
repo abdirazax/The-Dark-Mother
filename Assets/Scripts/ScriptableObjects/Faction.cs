@@ -9,7 +9,6 @@ public class Faction : ScriptableObject
     public string Id { get { return _id; } }
     public new string name;
     public string description;
-    public bool isPlayerFaction;
 
 
     [field:SerializeField]

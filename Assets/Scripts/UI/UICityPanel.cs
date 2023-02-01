@@ -18,6 +18,17 @@ public class UICityPanel : MonoBehaviour
             buildingPortraits.Add(buildingsPanel.GetChild(i).GetComponent<Image>());
         }
     }
+
+    private void OnEnable()
+    {
+        SelectionManager.OnCitySelected += RenderCity;
+        SelectionManager.OnSomethingDeselected += Hide;
+    }
+    private void OnDisable()
+    {
+        SelectionManager.OnCitySelected -= RenderCity;
+        SelectionManager.OnSomethingDeselected -= Hide;
+    }
     public void Hide()
     {
         gameObject.SetActive(false);

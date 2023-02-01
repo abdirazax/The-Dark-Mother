@@ -17,7 +17,9 @@ public class FactionsManager : MonoBehaviour,ISaveable
 
     [field:SerializeField]
     public List<Faction> Factions { get; private set; }
-    
+    [field: SerializeField]
+    List<Faction> playerControlledFactions;
+
     GlobalMapSpawnManager globalMapSpawnManager;
     FactionsResourcesManager factionsResourcesManager;
 
@@ -33,8 +35,6 @@ public class FactionsManager : MonoBehaviour,ISaveable
     /// faction relations can't exist in and of itself. That's why they are represented by 2D Array;
     /// </summary>
     public Relationship[,] FactionsRelationships { get; private set; }
-
-    
     #endregion
 
     
@@ -60,23 +60,21 @@ public class FactionsManager : MonoBehaviour,ISaveable
         factionsResourcesManager = GetComponent<FactionsResourcesManager>();
         CreateFactionsOpinions();
         factionsResourcesManager.CreateResourcesStores(Factions,database);
-        globalMapSpawnManager.SetFactionsArmiesAndCitiesInTheScene(Factions);
-
     }
 
-
+    public bool IsFactionPlayer(Faction faction)
+    {
+        return playerControlledFactions.Contains(faction);
+    }
     public void ActivateFactionChangesPerTurn(Faction faction)
     {
-        factionsResourcesManager.ActivateResourceChangesPerTurn(faction, globalMapSpawnManager);
+        factionsResourcesManager.ActivateResourceChangesPerTurn(faction, globalMapSpawnManager,IsFactionPlayer(faction));
     }
     public void UpdateFactionResources(Faction faction)
     {
         factionsResourcesManager.UpdateCapResourcesUsage(faction,globalMapSpawnManager);
-        factionsResourcesManager.CalculatedFactionResourcesChangeInNextTurn(faction,globalMapSpawnManager);//this will render it on screen if it's player
+        factionsResourcesManager.CalculatedFactionResourcesChangeInNextTurn(faction, globalMapSpawnManager, IsFactionPlayer(faction));//this will render it on screen if it's player
     }
-
-
-
 
     public Relationship RelationshipBetween(Faction faction1, Faction faction2)
     {
@@ -125,6 +123,9 @@ public class FactionsManager : MonoBehaviour,ISaveable
                 FactionsRelationships[i, j] = (Relationship)saveData.factionsRelationships[i, j];
             }
         }
+        playerControlledFactions = new List<Faction>();
+        foreach (string playerFactionId in saveData.playerControlledFactionsIds)
+            playerControlledFactions.Add(database.allFactions[playerFactionId]);
     }
     [Serializable]
     struct SaveData
@@ -133,7 +134,7 @@ public class FactionsManager : MonoBehaviour,ISaveable
         public int[,] factionsCurrentOpinions;
         public int[,] factionsOpinionsChangeNextTurn;
         public int[,] factionsRelationships;
-
+        public string[] playerControlledFactionsIds;
 
         public SaveData(FactionsManager factionsManager)
         {
@@ -150,7 +151,11 @@ public class FactionsManager : MonoBehaviour,ISaveable
                     factionsRelationships[i, j] = (int)factionsManager.FactionsRelationships[i, j];
                 }
             }
-
+            playerControlledFactionsIds = new string[factionsManager.playerControlledFactions.Count];
+            for (int i = 0; i < factionsManager.playerControlledFactions.Count; i++) 
+            {
+                playerControlledFactionsIds[i]=factionsManager.playerControlledFactions[i].Id;
+            }
         }
     }
 }

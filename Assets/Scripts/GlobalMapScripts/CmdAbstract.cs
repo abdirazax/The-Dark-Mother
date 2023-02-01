@@ -72,34 +72,29 @@ public class CmdArmyMove : CmdAbstract
         initialPosition = pawnArmy.transform.position;
         this.targetDestination = targetDestination;
     }
-    public CmdArmyMove(Faction faction, Army pawnArmy, Vector3 initialPosition, Vector3 targetDestination) : base(faction,pawnArmy)
-    {
-        this.initialPosition = initialPosition;
-        this.targetDestination = targetDestination;
-    }
 
     public override void DoWhenStartedExecuting()
     {
         //Debug.Log(PawnArmy.name + " Started Moving \nFrom " + initialPosition + " to " + targetDestination);
-        PawnArmy.Navigates.SetDestinationAndMove(targetDestination);
+        PawnArmy.Navigates.SetNewDestination(targetDestination);
     }
     public override void DoWhileExecuting()
     {
     }
     public override bool IsExecutionEndConditionMet()
     {
-        return PawnArmy.Navigates.IsIdle;
+        return PawnArmy.Navigates.DoesNavigation.IsIdle;
     }
     public override void DoWhenEndedExecuting()
     {
         //Debug.Log(PawnArmy.name + " Ended Moving\nFrom " + initialPosition + " to " + targetDestination);
-        PawnArmy.Navigates.FinishMovement();
+        PawnArmy.Navigates.DoesNavigation.FinishMovement();
     }
 
     public override void DoWhenInterrupted()
     {
         //Debug.Log("Interrupting");
         targetDestination = PawnArmy.transform.position;
-        PawnArmy.Navigates.SetDestinationAndMove(targetDestination);
+        PawnArmy.Navigates.SetNewDestination(targetDestination);
     }
 }

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3941084069081714665}
   - component: {fileID: 866466132}
   - component: {fileID: 2620550889766465491}
+  - component: {fileID: 866466133}
   m_Layer: 3
   m_Name: Army
   m_TagString: Untagged
@@ -53,8 +54,9 @@ MonoBehaviour:
   name: Dark Mother
   <Leader>k__BackingField: {fileID: 11400000, guid: bb58a049d9cc69b418574ba12c25df3d,
     type: 2}
-  <Troops>k__BackingField:
+  <Agents>k__BackingField:
   - {fileID: 11400000, guid: d2662c832100a99469c5fcd42edd65f4, type: 2}
+  <Troops>k__BackingField:
   - {fileID: 11400000, guid: 9f3827aec00e66f4ca734ba52f560e30, type: 2}
   - {fileID: 11400000, guid: 9f3827aec00e66f4ca734ba52f560e30, type: 2}
   - {fileID: 11400000, guid: 9f3827aec00e66f4ca734ba52f560e30, type: 2}
@@ -88,10 +90,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementPoints: 10
   <MovementPointsMax>k__BackingField: 10
-  startHL: {fileID: 0}
-  targetHL: {fileID: 0}
-  initialPosition: {x: 0, y: 0, z: 0}
-  finalDestination: {x: 0, y: 0, z: 0}
+  globalDestinationPosition: {x: 0, y: 0, z: 0}
 --- !u!195 &3941084069081714665
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -223,6 +222,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ce23e86d7b826954e93683865d4c5b30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &866466133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3941084069081714676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fc2cfb7c233193499ee5c9357b860d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &3941084067640594189
